@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:second_task_flutter/model/categoriesnames.dart';
 import 'package:second_task_flutter/providers/APIService_Provider.dart';
-import 'package:second_task_flutter/providers/combinedProvider.dart';
 import 'package:second_task_flutter/providers/counter_provider.dart';
 import 'package:second_task_flutter/providers/remove_tile_provider.dart';
 
@@ -93,7 +92,7 @@ class _FoodListState extends ConsumerState<FoodList> {
                                     //   categoryData.removeAt(index);
                                     // });
 
-                                   ref.read(removeTileProviderProvider.notifier).removeAtIndex(item, index);
+                                   ref.read(aPIService_ProviderProvider.notifier).deleteTile(index);
                                   },
                                   icon: const Icon(Icons.delete))
                             ],

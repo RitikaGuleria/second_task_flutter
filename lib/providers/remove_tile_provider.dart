@@ -15,13 +15,10 @@ class RemoveTileProvider extends _$RemoveTileProvider {
     return [];
   }
 
-  void removeAtIndex(CategoriesNames category, int index) {
-    print("Shariq bhaiya hello $index");
-    print("Muskan didi hello $category");
+  void removeAtIndex(CategoriesNames category, int index)
+  {
     final List<CategoriesNames> currentList = state;
-
     currentList.removeAt(currentList.indexOf(category));
-
     state = currentList;
   }
 }

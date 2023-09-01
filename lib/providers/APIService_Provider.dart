@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:second_task_flutter/model/categoriesnames.dart';
@@ -6,36 +5,46 @@ import 'package:second_task_flutter/model/categoriesnames.dart';
 part 'APIService_Provider.g.dart';
 
 @riverpod
-class APIService_Provider extends _$APIService_Provider{
-
+class APIService_Provider extends _$APIService_Provider {
   @override
-  Future<List<CategoriesNames>> build() async{
+  Future<List<CategoriesNames>> build() async {
     return [];
   }
 
-  Future<List<CategoriesNames>> fetchCategories() async{
+  Future<List<CategoriesNames>> fetchCategories() async {
     state = const AsyncValue.loading();
-    try{
+    try {
       final dio = Dio();
-      final response = await dio.get('https://www.themealdb.com/api/json/v1/1/categories.php');
+      final response = await dio
+          .get('https://www.themealdb.com/api/json/v1/1/categories.php');
       final json = response.data['categories']! as List;
-      final userData = json.map((item) => CategoriesNames.fromJson(item)).toList();
+      final userData =
+          json.map((item) => CategoriesNames.fromJson(item)).toList();
       print("12 $userData");
       state = AsyncData(userData);
       return userData;
-    }
-    catch(error,stackTrace){
+    } catch (error, stackTrace) {
       state = AsyncValue.error(error.toString(), stackTrace);
       return [];
     }
   }
 
-  // Future<List<CategoriesNames>> deleteTile(int idx) async{
-  //   state=
-  //   return [];
-  // }
+  Future<void> deleteTile(int index) async {
+    state.when(
+      data: (categoryData) {
+        if (index >= 0 && index < categoryData.length) {
+          final updatedList = List.of(categoryData);
+          updatedList.removeAt(index);
+          state = AsyncData(updatedList);
+        }
+      },
+      error: (Object error, StackTrace stackTrace) {},
+      loading: () {},
+    );
+  }
 
+// Future<List<CategoriesNames>> deleteTile(int idx) async{
+//   state=
+//   return [];
+// }
 }
-
-
-

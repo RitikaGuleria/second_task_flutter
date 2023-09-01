@@ -8,16 +8,20 @@ class Counter_Provider extends _$Counter_Provider{
 
   @override
   int build(){
-    return 0;
+    return  0;
   }
 
-  void increment()
+  int increment()
   {
-    state++;
+    return state++;
+    // final counter = ref.read(counter_ProviderProvider.notifier);
+    // counter.increment(key);
   }
-  void decrement()
+  int  decrement()
   {
-    state--;
+    return state--;
+    // final counter = ref.read(counter_ProviderProvider.notifier);
+    // counter.decrement(key);
   }
 
 }

@@ -30,6 +30,11 @@ class APIService_Provider extends _$APIService_Provider{
     }
   }
 
+  // Future<List<CategoriesNames>> deleteTile(int idx) async{
+  //   state=
+  //   return [];
+  // }
+
 }
 
 

@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'counter_provider.dart';
+part of 'combinedProvider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$counter_ProviderHash() => r'9e88809038966c26d95f5f6e99f7d02c94bd1a11';
+String _$combinedProviderHash() => r'b3c43a18348b683f9cbb9d1a08713b819ec8b34c';
 
-/// See also [Counter_Provider].
-@ProviderFor(Counter_Provider)
-final counter_ProviderProvider =
-    AutoDisposeNotifierProvider<Counter_Provider, int>.internal(
-  Counter_Provider.new,
-  name: r'counter_ProviderProvider',
+/// See also [combinedProvider].
+@ProviderFor(combinedProvider)
+final combinedProviderProvider = AutoDisposeNotifierProvider<combinedProvider,
+    List<CategoriesNames>>.internal(
+  combinedProvider.new,
+  name: r'combinedProviderProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$counter_ProviderHash,
+      : _$combinedProviderHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$Counter_Provider = AutoDisposeNotifier<int>;
+typedef _$combinedProvider = AutoDisposeNotifier<List<CategoriesNames>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member

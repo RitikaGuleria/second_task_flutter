@@ -7,7 +7,7 @@ part of 'APIService_Provider.dart';
 // **************************************************************************
 
 String _$aPIService_ProviderHash() =>
-    r'5682722cabeb6f656a79e1b0753fef3f9130c94a';
+    r'377900b69c7a9c96e7bff7a08d9ac0a4bbf5a96a';
 
 /// See also [APIService_Provider].
 @ProviderFor(APIService_Provider)

@@ -23,6 +23,7 @@ mixin _$CategoriesNames {
   String get idCategory => throw _privateConstructorUsedError;
   String get strCategory => throw _privateConstructorUsedError;
   String get strCategoryThumb => throw _privateConstructorUsedError;
+  int get count => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +37,11 @@ abstract class $CategoriesNamesCopyWith<$Res> {
           CategoriesNames value, $Res Function(CategoriesNames) then) =
       _$CategoriesNamesCopyWithImpl<$Res, CategoriesNames>;
   @useResult
-  $Res call({String idCategory, String strCategory, String strCategoryThumb});
+  $Res call(
+      {String idCategory,
+      String strCategory,
+      String strCategoryThumb,
+      int count});
 }
 
 /// @nodoc
@@ -55,6 +60,7 @@ class _$CategoriesNamesCopyWithImpl<$Res, $Val extends CategoriesNames>
     Object? idCategory = null,
     Object? strCategory = null,
     Object? strCategoryThumb = null,
+    Object? count = null,
   }) {
     return _then(_value.copyWith(
       idCategory: null == idCategory
@@ -69,6 +75,10 @@ class _$CategoriesNamesCopyWithImpl<$Res, $Val extends CategoriesNames>
           ? _value.strCategoryThumb
           : strCategoryThumb // ignore: cast_nullable_to_non_nullable
               as String,
+      count: null == count
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -81,7 +91,11 @@ abstract class _$$_CategoriesNamesCopyWith<$Res>
       __$$_CategoriesNamesCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String idCategory, String strCategory, String strCategoryThumb});
+  $Res call(
+      {String idCategory,
+      String strCategory,
+      String strCategoryThumb,
+      int count});
 }
 
 /// @nodoc
@@ -98,6 +112,7 @@ class __$$_CategoriesNamesCopyWithImpl<$Res>
     Object? idCategory = null,
     Object? strCategory = null,
     Object? strCategoryThumb = null,
+    Object? count = null,
   }) {
     return _then(_$_CategoriesNames(
       idCategory: null == idCategory
@@ -112,6 +127,10 @@ class __$$_CategoriesNamesCopyWithImpl<$Res>
           ? _value.strCategoryThumb
           : strCategoryThumb // ignore: cast_nullable_to_non_nullable
               as String,
+      count: null == count
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -122,7 +141,8 @@ class _$_CategoriesNames implements _CategoriesNames {
   const _$_CategoriesNames(
       {required this.idCategory,
       required this.strCategory,
-      required this.strCategoryThumb});
+      required this.strCategoryThumb,
+      this.count = 0});
 
   factory _$_CategoriesNames.fromJson(Map<String, dynamic> json) =>
       _$$_CategoriesNamesFromJson(json);
@@ -133,10 +153,13 @@ class _$_CategoriesNames implements _CategoriesNames {
   final String strCategory;
   @override
   final String strCategoryThumb;
+  @override
+  @JsonKey()
+  final int count;
 
   @override
   String toString() {
-    return 'CategoriesNames(idCategory: $idCategory, strCategory: $strCategory, strCategoryThumb: $strCategoryThumb)';
+    return 'CategoriesNames(idCategory: $idCategory, strCategory: $strCategory, strCategoryThumb: $strCategoryThumb, count: $count)';
   }
 
   @override
@@ -149,13 +172,14 @@ class _$_CategoriesNames implements _CategoriesNames {
             (identical(other.strCategory, strCategory) ||
                 other.strCategory == strCategory) &&
             (identical(other.strCategoryThumb, strCategoryThumb) ||
-                other.strCategoryThumb == strCategoryThumb));
+                other.strCategoryThumb == strCategoryThumb) &&
+            (identical(other.count, count) || other.count == count));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, idCategory, strCategory, strCategoryThumb);
+  int get hashCode => Object.hash(
+      runtimeType, idCategory, strCategory, strCategoryThumb, count);
 
   @JsonKey(ignore: true)
   @override
@@ -175,7 +199,8 @@ abstract class _CategoriesNames implements CategoriesNames {
   const factory _CategoriesNames(
       {required final String idCategory,
       required final String strCategory,
-      required final String strCategoryThumb}) = _$_CategoriesNames;
+      required final String strCategoryThumb,
+      final int count}) = _$_CategoriesNames;
 
   factory _CategoriesNames.fromJson(Map<String, dynamic> json) =
       _$_CategoriesNames.fromJson;
@@ -186,6 +211,8 @@ abstract class _CategoriesNames implements CategoriesNames {
   String get strCategory;
   @override
   String get strCategoryThumb;
+  @override
+  int get count;
   @override
   @JsonKey(ignore: true)
   _$$_CategoriesNamesCopyWith<_$_CategoriesNames> get copyWith =>

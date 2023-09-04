@@ -11,6 +11,7 @@ _$_CategoriesNames _$$_CategoriesNamesFromJson(Map<String, dynamic> json) =>
       idCategory: json['idCategory'] as String,
       strCategory: json['strCategory'] as String,
       strCategoryThumb: json['strCategoryThumb'] as String,
+      count: json['count'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$$_CategoriesNamesToJson(_$_CategoriesNames instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$$_CategoriesNamesToJson(_$_CategoriesNames instance) =>
       'idCategory': instance.idCategory,
       'strCategory': instance.strCategory,
       'strCategoryThumb': instance.strCategoryThumb,
+      'count': instance.count,
     };

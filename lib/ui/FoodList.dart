@@ -2,20 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:second_task_flutter/model/categoriesnames.dart';
-import 'package:second_task_flutter/providers/APIService_Provider.dart';
+import 'package:second_task_flutter/providers/providers.dart';
+import 'package:second_task_flutter/providers/Search.dart';
 import 'package:second_task_flutter/providers/counter_provider.dart';
-import 'package:second_task_flutter/providers/remove_tile_provider.dart';
-
-// part 'FoodList.g.dart';
-
-// @riverpod
-// int incrementc(IncrementcRef ref,{required int count}){
-//
-//   // count=count+1;
-//   return count++;
-// }
-
-
 
 class FoodList extends ConsumerStatefulWidget {
   const FoodList({super.key});
@@ -31,94 +20,120 @@ class _FoodListState extends ConsumerState<FoodList> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(aPIService_ProviderProvider.notifier).fetchCategories();
+      ref.read(providersProvider.notifier).fetchCategories();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // final counter = ref.watch(counter_ProviderProvider);
-    // final removeTile = ref.watch(removeTileProviderProvider);
 
-    //To access previous and current value, you can use listen
-    // ref.listen<int>(counter_ProviderProvider, (previous, next) {
-    //   print('previous : $previous | current value : $next');
-    // }, onError: (error, stackTrace) {});
+    final apiProvider = ref.watch(providersProvider);
+    final itemToSearch=ref.watch(searchProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Food Category List"),
+        title: const Text("Food Category List"),
       ),
-      body: Consumer(builder: (context, ref, child) {
-        AsyncValue<List<CategoriesNames>> cl =
-            ref.watch(aPIService_ProviderProvider);
+      body:
+          // Consumer(builder: (context, ref, child) {
+          //   AsyncValue<List<CategoriesNames>> cl = ref.watch(aPIService_ProviderProvider);
+      Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            SafeArea(child: TextFormField(
+              validator: (val){
+                if(val==null || val.isEmpty){
+                  return "Please enter something to search";
+                }
+                return null;
+              },
+              onChanged: (value){
+                ref.watch(searchProvider.notifier).update(value);
+              },
+              onEditingComplete: (){
+                ref.watch(providersProvider.notifier).searchAndUpdateNewList(itemToSearch);
+              },
+              decoration: InputDecoration(
+                hintText: "Search",border: OutlineInputBorder(borderRadius: BorderRadius.circular(22))
+              ),
+            )),
 
-        return cl.when(
-            data: (categoryData) {
-              return ListView.builder(
-                  itemCount: categoryData.length,
-                  itemBuilder: (context, index) {
-                    final item = categoryData[index];
-                    return Card(
-                      elevation: 6,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(22)),
-                      child: ListTile(
-                        leading: ClipRRect(
-                          borderRadius: BorderRadius.circular(22),
-                          child: Image.network(
-                            item.strCategoryThumb,
-                            fit: BoxFit.fill,
-                            height: 45,
-                            width: 45,
-                          ),
-                        ),
-                        title: Text(item.strCategory),
-                        trailing: FittedBox(
-                          child: Row(
-                            children: [
-                              IconButton(
-                                  onPressed: () {
-                                    ref
-                                        .watch(
-                                            aPIService_ProviderProvider.notifier)
-                                        .decrease(index);
-                                  },
-                                  icon: const Icon(Icons.remove)),
-                              Text(item.count.toString()),
-                              IconButton(
-                                  onPressed: () {
-                                    // final countVal= index+1;
-                                    // ref.watch(IncrementcProvider(count: 0));
-                                    ref
-                                        .watch(
-                                        aPIService_ProviderProvider.notifier)
-                                        .increase(index);
-                                  },
-                                  icon: const Icon(Icons.add)),
-                              IconButton(
-                                  onPressed: () {
-                                    // setState(() {
-                                    //   categoryData.removeAt(index);
-                                    // });
+            SizedBox(height: 12,),
 
-                                    ref
-                                        .read(aPIService_ProviderProvider
-                                            .notifier)
-                                        .deleteTile(index);
-                                  },
-                                  icon: const Icon(Icons.delete))
-                            ],
-                          ),
-                        ),
-                        // subtitle: Text(),
-                      ),
-                    );
-                  });
-            },
-            error: (err, stack) => Text("Error is: $err"),
-            loading: () => Center(child: CircularProgressIndicator()));
-      }),
+            Expanded(
+              child: apiProvider.when(
+                  data: (categoryData) {
+
+                    return ListView.builder(
+                        itemCount: categoryData.length,
+                        itemBuilder: (context, index) {
+                          final item = categoryData[index];
+                          return Card(
+                            elevation: 6,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(22)),
+                            child: ListTile(
+                              leading: ClipRRect(
+                                borderRadius: BorderRadius.circular(22),
+                                child: Image.network(
+                                  item.strCategoryThumb,
+                                  fit: BoxFit.fill,
+                                  height: 45,
+                                  width: 45,
+                                ),
+                              ),
+                              title: Text(item.strCategory),
+                              trailing: FittedBox(
+                                child: Row(
+                                  children: [
+                                    IconButton(
+                                        onPressed: () {
+                                          ref
+                                              .watch(
+                                              providersProvider.notifier)
+                                              .decrease(index);
+                                        },
+                                        icon: const Icon(Icons.remove)),
+                                    Text(item.count.toString()),
+                                    IconButton(
+                                        onPressed: () {
+                                          // final countVal= index+1;
+                                          // ref.watch(IncrementcProvider(count: 0));
+                                          ref
+                                              .watch(
+                                              providersProvider.notifier)
+                                              .increase(index);
+                                        },
+                                        icon: const Icon(Icons.add)),
+                                    IconButton(
+                                        onPressed: () {
+                                          // setState(() {
+                                          //   categoryData.removeAt(index);
+                                          // });
+
+                                          ref
+                                              .read(providersProvider
+                                              .notifier)
+                                              .deleteTile(index);
+                                        },
+                                        icon: const Icon(Icons.delete))
+                                  ],
+                                ),
+                              ),
+                              // subtitle: Text(),
+                            ),
+                          );
+                        });
+                  },
+                  error: (err, stack) => Text("Error is: $err"),
+                  loading: () => Center(child: CircularProgressIndicator())
+              ),
+            ),
+          ],
+        ),
+      )
+
     );
-  }
+    }
 }

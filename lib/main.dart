@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:second_task_flutter/ui/FoodList.dart';
+import 'package:second_task_flutter/ui/categorizeList.dart';
+import 'package:second_task_flutter/ui/groupedList.dart';
 
 void main() {
-  runApp(ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -11,8 +13,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: FoodList(),
+    return const MaterialApp(
+      home: MyCategories(),
     );
   }
 }
